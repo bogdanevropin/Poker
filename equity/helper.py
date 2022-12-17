@@ -115,9 +115,9 @@ def preflop_help(start_info):
 	straight_flash_combs = 0
 	all_combs = len(all_flops)
 	for flop in all_flops:
-		if flop[0][1] == flop[1][1] == flop[2][1] == 2:
-				print()
-				print()
+		# if flop[0][1] == flop[1][1] == flop[2][1] == 2:
+		# 		print()
+		# 		print()
 		comb_cards, flop_comb = make_comb(hand=current_hand_nums, board=flop)
 		if flop_comb == 'straight flash':
 			straight_flash_combs += 1
@@ -141,32 +141,31 @@ def preflop_help(start_info):
 		else:  # 'high cards'
 			high_card_combs += 1
 	print(f'Preflop analysis:')
-	print(f'All flops generated: {all_combs}')
-	print(f'Chances of Straight_Flash: {straight_flash_combs} combs / {all_combs} flops = '
-	      f'{round((straight_flash_combs/all_combs)*100, 5)} %')
-	print(f'Chances of Quads: {quads_combs} combs / {all_combs} flops = '
-	      f'{round((quads_combs / all_combs) * 100, 4)} %')
-	print(f'Chances of Full-Houses: {full_houses_combs} combs / {all_combs} flops = '
-	      f'{round((full_houses_combs / all_combs) * 100, 3)} %')
-	print(f'Chances of Flashes: {flash_combs} combs / {all_combs} flops = '
-	      f'{round((flash_combs / all_combs) * 100, 3)} %')
-	print(f'Chances of Straights: {straight_combs} combs / {all_combs} flops = '
-	      f'{round((straight_combs / all_combs) * 100, 3)} %')
+	print(f'All flops generated: {all_combs} amount')
+	print(f'STRAIGHT FLASH: {round((straight_flash_combs/all_combs)*100, 5)} % on flop '
+	      f'({straight_flash_combs} combs / {all_combs} flops)')
+	print(f'QUADs ------- : {round((quads_combs / all_combs) * 100, 5)} % on flop '
+	      f'({quads_combs} combs / {all_combs} flops)')
+	print(f'FUll-HOUSE -- : {round((full_houses_combs / all_combs) * 100, 5)} % on flop '
+	      f'({full_houses_combs} combs / {all_combs} flops)')
+	print(f'FLASH ------- : {round((flash_combs / all_combs) * 100, 5)} % on flop '
+	      f'({flash_combs} combs / {all_combs} flops)')
+	print(f'STRAIGHT ---- : {round((straight_combs / all_combs) * 100, 5)} % on flop '
+	      f'({straight_combs} combs / {all_combs} flops)')
 	print()
-	print(f'Chances of 3-of-kind: {set_combs+trips_combs} combs / {all_combs} flops = '
-	      f'{round(((set_combs+trips_combs) / all_combs) * 100, 3)} %')
-	print(f'Chances of set: {set_combs} combs / {all_combs} flops = '
-	      f'{round((set_combs / all_combs) * 100, 3)} %')
-	print(f'Chances of trips: {trips_combs} combs / {all_combs} flops = '
-	      f'{round((trips_combs / all_combs) * 100, 3)} %')
-	print()
-	print(f'Chances of 2 pairs: {two_pair_combs} combs / {all_combs} flops = '
-	      f'{round((two_pair_combs / all_combs) * 100, 3)} %')
-	print(f'Chances of pair: {pair_combs} combs / {all_combs} flops = '
-	      f'{round((pair_combs / all_combs) * 100, 3)} %')
-	print()
-	print(f'Chances of high cards (nothing): {high_card_combs} combs / {all_combs} flops = '
-	      f'{round((high_card_combs / all_combs) * 100, 3)} %')
+	if pocket_pair:
+	print(f'3-of-kind --- : {round(((set_combs+trips_combs) / all_combs) * 100, 5)} % on flop '
+	      f'({set_combs+trips_combs} combs / {all_combs} flops)\n'
+	      f'SET --------- : {round((set_combs / all_combs) * 100, 5)} % on flop '
+	      f'({set_combs} combs / {all_combs} flops)\n'
+	      f'TRIPS ------- : {round((trips_combs / all_combs) * 100, 5)} % on flop '
+	      f'({trips_combs} combs / {all_combs} flops)')
+	print(f'TWO PAIRS --- : {round((two_pair_combs / all_combs) * 100, 5)} % on flop '
+	      f'({two_pair_combs} combs / {all_combs} flops)')
+	print(f'PAIR -------- : {round((pair_combs / all_combs) * 100, 5)} % on flop '
+	      f'({pair_combs} combs / {all_combs} flops)')
+	print(f'high cards -- : {round((high_card_combs / all_combs) * 100, 5)} % on flop '
+	      f'({high_card_combs} combs / {all_combs} flops)')
 	input()
 	return None, None, None
 

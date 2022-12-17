@@ -31,7 +31,7 @@ def card_to_nums(card):
 	s = card[1]
 	str_suits = ['h', 's', 'd', 'c']
 	suits = ['♥', '♠', '♦', '♣']  # Harts Spades Clubs Diamonds
-	cards = [0, 'A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A']
+	cards = [0, 1, '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A']
 	try:
 		vi = cards.index(v)
 		si = str_suits.index(s)
