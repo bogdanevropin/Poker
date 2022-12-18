@@ -38,6 +38,9 @@ def ask_hand():
 	else:
 		print('Invalid cards, restart algorithm. . .')
 		return False, None
+	if c1 == c2:
+		print('Same cards, restart algorithm. . .')
+		return False, None
 	c1_nums, c1_str = c1
 	c2_nums, c2_str = c2
 	current_hand_n = (c1_nums, c2_nums)
@@ -103,6 +106,10 @@ def preflop_help(start_info):
 	from tools import make_comb
 	high_card_combs = 0
 	pair_combs = 0
+	over_pair = 0
+	second_pair = 0
+	third_pair = 0
+	under_pair = 0
 	two_pair_combs = 0
 	trips_combs = 0
 	set_combs = 0
@@ -115,6 +122,7 @@ def preflop_help(start_info):
 	straight_flash_combs = 0
 	all_combs = len(all_flops)
 	for flop in all_flops:
+		flop_sorted = sorted(flop, key=lambda tup: tup[0])  # sorted by card value flop
 		# if flop[0][1] == flop[1][1] == flop[2][1] == 2:
 		# 		print()
 		# 		print()
@@ -137,6 +145,14 @@ def preflop_help(start_info):
 		elif flop_comb == 'two pairs':
 			two_pair_combs += 1
 		elif flop_comb == 'pair':
+			if flop_sorted[-1][0] < comb_cards[0][0][0]:
+				over_pair += 1
+			elif flop_sorted[-2][0] < comb_cards[0][0][0]:
+				second_pair += 1
+			elif flop_sorted[-3][0] < comb_cards[0][0][0]:
+				third_pair += 1
+			else:
+				under_pair += 1
 			pair_combs += 1
 		else:  # 'high cards'
 			high_card_combs += 1
@@ -154,18 +170,34 @@ def preflop_help(start_info):
 	      f'({straight_combs} combs / {all_combs} flops)')
 	print()
 	if pocket_pair:
-	print(f'3-of-kind --- : {round(((set_combs+trips_combs) / all_combs) * 100, 5)} % on flop '
-	      f'({set_combs+trips_combs} combs / {all_combs} flops)\n'
-	      f'SET --------- : {round((set_combs / all_combs) * 100, 5)} % on flop '
-	      f'({set_combs} combs / {all_combs} flops)\n'
-	      f'TRIPS ------- : {round((trips_combs / all_combs) * 100, 5)} % on flop '
-	      f'({trips_combs} combs / {all_combs} flops)')
+		print(f'SET --------- : {round((set_combs / all_combs) * 100, 5)} % on flop '
+		      f'({set_combs} combs / {all_combs} flops)\n')
+	else:
+		print(f'TRIPS ------- : {round((trips_combs / all_combs) * 100, 5)} % on flop '
+		      f'({trips_combs} combs / {all_combs} flops)')
+	# print(f'3-of-kind --- : {round(((set_combs+trips_combs) / all_combs) * 100, 5)} % on flop '
+	#       f'({set_combs+trips_combs} combs / {all_combs} flops)\n'
 	print(f'TWO PAIRS --- : {round((two_pair_combs / all_combs) * 100, 5)} % on flop '
 	      f'({two_pair_combs} combs / {all_combs} flops)')
-	print(f'PAIR -------- : {round((pair_combs / all_combs) * 100, 5)} % on flop '
-	      f'({pair_combs} combs / {all_combs} flops)')
-	print(f'high cards -- : {round((high_card_combs / all_combs) * 100, 5)} % on flop '
-	      f'({high_card_combs} combs / {all_combs} flops)')
+	if pocket_pair:
+		print(f'{current_hand_string} PAIR --- : {round((pair_combs / all_combs) * 100, 5)} % on flop '
+		      f'({pair_combs} combs / {all_combs} flops)')
+		print(f'{current_hand_string} OVER-Pair: {round((over_pair / all_combs) * 100, 5)} % on flop '
+		      f'({over_pair} combs / {all_combs} flops)')
+		print(f'{current_hand_string} 2-nd Pair: {round((second_pair / all_combs) * 100, 5)} % on flop '
+		      f'({second_pair} combs / {all_combs} flops)')
+		print(f'{current_hand_string} 3-rd Pair: {round((third_pair / all_combs) * 100, 5)} % on flop '
+		      f'({third_pair} combs / {all_combs} flops)')
+		print(f'{current_hand_string}  Low-Pair: {round((under_pair / all_combs) * 100, 5)} % on flop '
+		      f'({under_pair} combs / {all_combs} flops)')
+	else:
+		print(f'PAIR -------- : {round((pair_combs / all_combs) * 100, 5)} % on flop '
+		      f'({pair_combs} combs / {all_combs} flops)')
+	if pocket_pair:
+		print(f"You can't have high card combo, you already have pocket pair: {current_hand_string}")
+	else:
+		print(f'high cards -- : {round((high_card_combs / all_combs) * 100, 5)} % on flop '
+		      f'({high_card_combs} combs / {all_combs} flops)')
 	input()
 	return None, None, None
 
