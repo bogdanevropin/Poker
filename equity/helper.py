@@ -3,6 +3,7 @@ Helps to make solution
 """
 
 from tools import card_to_nums
+import PIL
 
 
 def ask_hand():
@@ -92,27 +93,37 @@ def ask_num_players_and_pos():
 	return info
 
 
-def preflop_help(start_info):
+def check_boards_combos(hand, hand_str, pocket_pair, boards):
 	"""
-	Help with pre-flop decision
-	:param start_info: current_hand_nums, current_hand_string, currents_hand_suits
+	Check board combos
+	:param hand: ((v1, s1), (v2, s2))
+	:param hand_str: string hand
+	:param pocket_pair: True or false
+	:param boards: flop turn or river board list
 	"""
-	from tools import gen_flop
-	current_hand_nums, current_hand_string, currents_hand_suits = start_info
-	pocket_pair = False
-	if current_hand_string[0] == current_hand_string[2]:
-		pocket_pair = True
-	all_flops = gen_flop(dead_cards=current_hand_nums, all_=True)[2]
 	from tools import make_comb
 	high_card_combs = 0
 	pair_combs = 0
 	over_pair = 0
+	top_pair = 0
 	second_pair = 0
 	third_pair = 0
 	under_pair = 0
+	pair_board = 0
 	two_pair_combs = 0
+	two_pair_over_pair = 0
+	two_pair_second_pair = 0
+	two_pair_under_pair = 0
+	two_pairs12 = 0
+	two_pairs13 = 0
+	two_pairs23 = 0
+	two_pair1 = 0
+	two_pair2 = 0
 	trips_combs = 0
 	set_combs = 0
+	top_set = 0
+	second_set = 0
+	third_set = 0
 	straight_combs = 0
 	straight_1_dro = 0
 	straight_2_dro = 0
@@ -120,13 +131,11 @@ def preflop_help(start_info):
 	full_houses_combs = 0
 	quads_combs = 0
 	straight_flash_combs = 0
-	all_combs = len(all_flops)
-	for flop in all_flops:
-		flop_sorted = sorted(flop, key=lambda tup: tup[0])  # sorted by card value flop
-		# if flop[0][1] == flop[1][1] == flop[2][1] == 2:
-		# 		print()
-		# 		print()
-		comb_cards, flop_comb = make_comb(hand=current_hand_nums, board=flop)
+	all_combs = len(boards)
+	for board in boards:
+		board_sorted = sorted(board, key=lambda tup: tup[0])  # sorted by card value flop
+		flop_v = [c[0] for c in board_sorted]
+		comb_cards, flop_comb = make_comb(hand=hand, board=board)
 		if flop_comb == 'straight flash':
 			straight_flash_combs += 1
 		elif flop_comb == 'quads':
@@ -140,66 +149,187 @@ def preflop_help(start_info):
 		elif flop_comb == 'set trips':
 			if pocket_pair:
 				set_combs += 1
+				if board_sorted[-1][0] == hand[0][0]:
+					top_set += 1
+				elif board_sorted[-2][0] == hand[0][0]:
+					second_set += 1
+				else:
+					third_set += 1
 			else:
 				trips_combs += 1
 		elif flop_comb == 'two pairs':
 			two_pair_combs += 1
-		elif flop_comb == 'pair':
-			if flop_sorted[-1][0] < comb_cards[0][0][0]:
-				over_pair += 1
-			elif flop_sorted[-2][0] < comb_cards[0][0][0]:
-				second_pair += 1
-			elif flop_sorted[-3][0] < comb_cards[0][0][0]:
-				third_pair += 1
+			if pocket_pair:
+				if board_sorted[-1][0] < hand[0][0]:
+					two_pair_over_pair += 1
+				elif board_sorted[-3][0] < hand[0][0]:
+					two_pair_second_pair += 1
+				else:
+					two_pair_under_pair += 1
 			else:
-				under_pair += 1
+				if hand[1][0] in flop_v:
+					p1_n = flop_v.index(hand[1][0])
+					if hand[0][0] in flop_v:
+						p2_n = flop_v.index(hand[0][0])
+						if p1_n == 2 and p2_n == 1:
+							two_pairs12 += 1
+						elif p1_n == 2 and p2_n == 0:
+							two_pairs13 += 1
+						elif p1_n == 1 and p2_n == 0:
+							two_pairs23 += 1
+						else:
+							raise Exception("Unknown 2 pair indexes error")
+					else:
+						if flop_v[1] > hand[1][0]:
+							two_pair2 += 1
+						else:
+							two_pair1 += 1
+				else:
+					if flop_v[1] > hand[0][0]:
+						two_pair2 += 1
+					else:
+						two_pair1 += 1
+		elif flop_comb == 'pair':
 			pair_combs += 1
+			if pocket_pair:
+				if board_sorted[-1][0] < hand[0][0]:
+					over_pair += 1
+				elif board_sorted[-2][0] < hand[0][0]:
+					second_pair += 1
+				elif board_sorted[-3][0] < hand[0][0]:
+					third_pair += 1
+				elif board_sorted[-3][0] > hand[0][0]:
+					under_pair += 1
+				else:
+					raise Exception("Unknown 2 pair error")
+			else:
+				if board_sorted[-1][0] == hand[1][0] or \
+					board_sorted[-1][0] == hand[0][0]:
+					top_pair += 1
+				elif board_sorted[-2][0] == hand[1][0] or \
+					board_sorted[-2][0] == hand[0][0]:
+					second_pair += 1
+				elif board_sorted[-3][0] == hand[1][0] or \
+					board_sorted[-3][0] == hand[0][0]:
+					third_pair += 1
+				elif board_sorted[-1][0] == board_sorted[-2][0] or \
+					board_sorted[-2][0] == board_sorted[-3][0]:
+					pair_board += 1
+				else:
+					raise Exception("Unknown pair error")
 		else:  # 'high cards'
 			high_card_combs += 1
+	street = None
+	if len(boards[0]) == 3:
+		street = 'Flops'
+	elif len(boards[0]) == 4:
+		street = 'Turns'
+	elif len(boards[0]) == 5:
+		street = 'Rivers'
 	print(f'Preflop analysis:')
-	print(f'All flops generated: {all_combs} amount')
-	print(f'STRAIGHT FLASH: {round((straight_flash_combs/all_combs)*100, 5)} % on flop '
-	      f'({straight_flash_combs} combs / {all_combs} flops)')
-	print(f'QUADs ------- : {round((quads_combs / all_combs) * 100, 5)} % on flop '
-	      f'({quads_combs} combs / {all_combs} flops)')
-	print(f'FUll-HOUSE -- : {round((full_houses_combs / all_combs) * 100, 5)} % on flop '
-	      f'({full_houses_combs} combs / {all_combs} flops)')
-	print(f'FLASH ------- : {round((flash_combs / all_combs) * 100, 5)} % on flop '
-	      f'({flash_combs} combs / {all_combs} flops)')
-	print(f'STRAIGHT ---- : {round((straight_combs / all_combs) * 100, 5)} % on flop '
-	      f'({straight_combs} combs / {all_combs} flops)')
+	print(f'All {street} generated: {all_combs} amount')
+	print(f'STRAIGHT FLASH: {round((straight_flash_combs / all_combs) * 100, 5)} % on {street} '
+	      f'({straight_flash_combs} combs / {all_combs} {street})')
+	print(f'QUADs ------- : {round((quads_combs / all_combs) * 100, 5)} % on {street} '
+	      f'({quads_combs} combs / {all_combs} {street})')
+	print(f'FUll-HOUSE -- : {round((full_houses_combs / all_combs) * 100, 5)} % on {street} '
+	      f'({full_houses_combs} combs / {all_combs} {street})')
+	print(f'FLASH ------- : {round((flash_combs / all_combs) * 100, 5)} % on {street} '
+	      f'({flash_combs} combs / {all_combs} {street})')
+	print(f'STRAIGHT ---- : {round((straight_combs / all_combs) * 100, 5)} % on {street} '
+	      f'({straight_combs} combs / {all_combs} {street})')
 	print()
 	if pocket_pair:
-		print(f'SET --------- : {round((set_combs / all_combs) * 100, 5)} % on flop '
-		      f'({set_combs} combs / {all_combs} flops)\n')
+		print(f'---- SET ---- : {round((set_combs / all_combs) * 100, 5)} % on {street} '
+		      f'({set_combs} combs / {all_combs} {street})')
+		print(f'    |  TOP SET: {round((top_set / all_combs) * 100, 5)} % on {street} '
+		      f'({top_set} combs / {all_combs} {street})')
+		print(f'    | 2-nd SET: {round((second_set / all_combs) * 100, 5)} % on {street} '
+		      f'({second_set} combs / {all_combs} {street})')
+		print(f'    | 3-rd SET: {round((third_set / all_combs) * 100, 5)} % on {street} '
+		      f'({third_set} combs / {all_combs} {street})')
+		print()
+		print(f'- TWO PAIRS - : {round((two_pair_combs / all_combs) * 100, 5)} % on {street} '
+		      f'({two_pair_combs} combs / {all_combs} {street})')
+		print(f'  2p OVER pair: {round((two_pair_over_pair / all_combs) * 100, 5)} % on {street} '
+		      f'({two_pair_over_pair} combs / {all_combs} {street})')
+		print(f'  2p 2-nd pair: {round((two_pair_second_pair / all_combs) * 100, 5)} % on {street} '
+		      f'({two_pair_second_pair} combs / {all_combs} {street})')
+		print(f'  2p Underpair: {round((two_pair_under_pair / all_combs) * 100, 5)} % on {street} '
+		      f'({two_pair_under_pair} combs / {all_combs} {street})')
+		print()
+		print(f'- {hand_str} PAIR - : {round((pair_combs / all_combs) * 100, 5)} % on {street} '
+		      f'({pair_combs} combs / {all_combs} {street})')
+		print(f'  |  OVER Pair: {round((over_pair / all_combs) * 100, 5)} % on {street} '
+		      f'({over_pair} combs / {all_combs} {street})')
+		print(f'  |  2-nd Pair: {round((second_pair / all_combs) * 100, 5)} % on {street} '
+		      f'({second_pair} combs / {all_combs} {street})')
+		print(f'  |  3-rd Pair: {round((third_pair / all_combs) * 100, 5)} % on {street} '
+		      f'({third_pair} combs / {all_combs} {street})')
+		print(f'  | Under Pair: {round((under_pair / all_combs) * 100, 5)} % on {street} '
+		      f'({under_pair} combs / {all_combs} {street})')
+		print(f"You can't have high card combo, you already have pocket pair: {hand_str}")
 	else:
-		print(f'TRIPS ------- : {round((trips_combs / all_combs) * 100, 5)} % on flop '
+		print(f'--- TRIPS --- : {round((trips_combs / all_combs) * 100, 5)} % on {street} '
 		      f'({trips_combs} combs / {all_combs} flops)')
-	# print(f'3-of-kind --- : {round(((set_combs+trips_combs) / all_combs) * 100, 5)} % on flop '
-	#       f'({set_combs+trips_combs} combs / {all_combs} flops)\n'
-	print(f'TWO PAIRS --- : {round((two_pair_combs / all_combs) * 100, 5)} % on flop '
-	      f'({two_pair_combs} combs / {all_combs} flops)')
-	if pocket_pair:
-		print(f'{current_hand_string} PAIR --- : {round((pair_combs / all_combs) * 100, 5)} % on flop '
-		      f'({pair_combs} combs / {all_combs} flops)')
-		print(f'{current_hand_string} OVER-Pair: {round((over_pair / all_combs) * 100, 5)} % on flop '
-		      f'({over_pair} combs / {all_combs} flops)')
-		print(f'{current_hand_string} 2-nd Pair: {round((second_pair / all_combs) * 100, 5)} % on flop '
-		      f'({second_pair} combs / {all_combs} flops)')
-		print(f'{current_hand_string} 3-rd Pair: {round((third_pair / all_combs) * 100, 5)} % on flop '
-		      f'({third_pair} combs / {all_combs} flops)')
-		print(f'{current_hand_string}  Low-Pair: {round((under_pair / all_combs) * 100, 5)} % on flop '
-		      f'({under_pair} combs / {all_combs} flops)')
-	else:
-		print(f'PAIR -------- : {round((pair_combs / all_combs) * 100, 5)} % on flop '
-		      f'({pair_combs} combs / {all_combs} flops)')
-	if pocket_pair:
-		print(f"You can't have high card combo, you already have pocket pair: {current_hand_string}")
-	else:
-		print(f'high cards -- : {round((high_card_combs / all_combs) * 100, 5)} % on flop '
-		      f'({high_card_combs} combs / {all_combs} flops)')
-	input()
+		print()
+		print(f'- TWO PAIRS - : {round((two_pair_combs / all_combs) * 100, 5)} % on {street} '
+		      f'({two_pair_combs} combs / {all_combs} {street})')
+		print(f'board p  & TOP: {round((two_pair1 / all_combs) * 100, 5)} % on {street} '
+		      f'({two_pair1} combs / {all_combs} {street})')
+		print(f'board & Second: {round((two_pair2 / all_combs) * 100, 5)} % on {street} '
+		      f'({two_pair2} combs / {all_combs} {street})')
+		print(f'TOP and Second: {round((two_pairs12 / all_combs) * 100, 5)} % on {street} '
+		      f'({two_pairs12} combs / {all_combs} {street})')
+		print(f' Top and third: {round((two_pairs13 / all_combs) * 100, 5)} % on {street} '
+		      f'({two_pairs13} combs / {all_combs} {street})')
+		print(f'Second & third: {round((two_pairs23 / all_combs) * 100, 5)} % on {street} '
+		      f'({two_pairs23} combs / {all_combs} {street})')
+		print()
+		print(f' --- PAIR --- : {round((pair_combs / all_combs) * 100, 5)} % on {street} '
+		      f'({pair_combs} combs / {all_combs} {street})')
+		print(f' |    TOP pair: {round((top_pair / all_combs) * 100, 5)} % on {street} '
+		      f'({top_pair} combs / {all_combs} {street})')
+		print(f' | Second pair: {round((second_pair / all_combs) * 100, 5)} % on {street} '
+		      f'({second_pair} combs / {all_combs} {street})')
+		print(f' |  Third pair: {round((third_pair / all_combs) * 100, 5)} % on {street} '
+		      f'({third_pair} combs / {all_combs} {street})')
+		print(f' |  Board pair: {round((pair_board / all_combs) * 100, 5)} % on {street} '
+		      f'({pair_board} combs / {all_combs} {street})')
+		print()
+		print(f' |  High cards: {round((high_card_combs / all_combs) * 100, 5)} % on {street} '
+		      f'({high_card_combs} combs / {all_combs} {street})')
+
+
+def preflop_help(start_info):
+	"""
+	Help with pre-flop decision
+	:param start_info: current_hand_nums, current_hand_string, currents_hand_suits
+	"""
+	from tools import gen_flop
+	current_hand_nums, current_hand_string, currents_hand_suits = start_info
+	current_hand_nums = list(sorted(current_hand_nums, key=lambda card: card[0]))
+	pocket_pair = False
+	if current_hand_string[0] == current_hand_string[2]:
+		pocket_pair = True
+	all_flops = gen_flop(dead_cards=set(current_hand_nums), all_=True)[2]
+	check_boards_combos(hand=current_hand_nums, hand_str=current_hand_string, pocket_pair=pocket_pair, boards=all_flops)
+	from tools import gen_next_card
+	all_turns = []
+	for t, flop in enumerate(all_flops):
+		dead_cards = set(current_hand_nums + flop)
+		next_turns = gen_next_card(prev=flop, dead_cards=dead_cards, all_=True)[2]
+		all_turns = all_turns + next_turns
+		# print(t)
+	check_boards_combos(hand=current_hand_nums, hand_str=current_hand_string, pocket_pair=pocket_pair, boards=all_turns)
+	for r, turn in enumerate(all_turns):
+		dead_cards = set(current_hand_nums + turn)
+		next_turns = gen_next_card(prev=turn, dead_cards=dead_cards, all_=True)[2]
+		all_turns = all_turns + next_turns
+		# print(r)
+	check_boards_combos(hand=current_hand_nums, hand_str=current_hand_string, pocket_pair=pocket_pair, boards=all_turns)
 	return None, None, None
+
 
 # def flop_help(start_info):
 # 	"""
@@ -253,12 +383,14 @@ def run_help():
 		#               (number_of_payers, your_pos, all_active_pos))
 		start_info = current_hand_nums, current_hand_string, currents_hand_suits
 		flop_pot, flop, info_before_flop = preflop_help(start_info)
-		# flop_info = flop_pot, flop, info_before_flop
-		# turn_pot, turn, info_before_turn = flop_help(flop_info)
-		# turn_info = turn_pot, turn, info_before_turn
-		# river_pot, river, info_before_river = turn_help(turn_info)
-		# river_info = river_pot, river, info_before_river
-		# river_help(river_info)
+
+
+# flop_info = flop_pot, flop, info_before_flop
+# turn_pot, turn, info_before_turn = flop_help(flop_info)
+# turn_info = turn_pot, turn, info_before_turn
+# river_pot, river, info_before_river = turn_help(turn_info)
+# river_info = river_pot, river, info_before_river
+# river_help(river_info)
 
 
 def main():

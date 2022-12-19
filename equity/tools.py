@@ -1,9 +1,7 @@
 """
 Tools
 """
-# import pprint
 import random
-# import os
 import csv
 
 
@@ -11,6 +9,11 @@ import csv
 
 
 def save_to_csv(data, file_path='D:\\Bogdan\\Programming\\Poker\\equity\\pre_flop\\eq.csv'):
+	"""
+	Save to file
+	:param data:
+	:param file_path:
+	"""
 	with open(file_path, 'w', newline='') as csv_file:
 		csv_out = csv.writer(csv_file)
 		csv_out.writerow(
@@ -35,7 +38,7 @@ def card_to_nums(card):
 	try:
 		vi = cards.index(v)
 		si = str_suits.index(s)
-		return (vi, si), card[0]+suits[si]
+		return (vi, si), card[0] + suits[si]
 	except ValueError:
 		return
 
@@ -132,7 +135,7 @@ def make_comb(hand: list, board: list):
 	suited = sorted(cards_for_comb, key=lambda tup: tup[1])  # sort cards by suits
 	
 	l_flash = len(suited) - 5  # num of 5 same suit cards
-	for index in range(l_flash, l_flash+1):  # flash check
+	for index in range(l_flash, l_flash + 1):  # flash check
 		curr = suited[index: index + 5]
 		if len(set([card[1] for card in curr])) == 1:  # 1 type of suit for all 5 cards
 			flash = curr
@@ -143,7 +146,7 @@ def make_comb(hand: list, board: list):
 			straighted.append((1, card[1]))  # ace with that suit
 	l_straight = len(straighted) - 5  # num of 5 in row cards
 	straighted = sorted(straighted, key=lambda tup: tup[0])
-	for index in range(l_straight, l_straight+1):
+	for index in range(l_straight, l_straight + 1):
 		curr = straighted[index: index + 5]
 		for n in range(4):  # except last
 			card = curr[n]
@@ -243,7 +246,9 @@ def make_comb(hand: list, board: list):
 				if len(h_cards) == 3:
 					pair = [pair, h_cards]
 					break
-	if quads:
+	if straight_flash:
+		return straight_flash, 'straight flash'
+	elif quads:
 		raise Exception('Strange situation quads')
 	elif full_house:
 		return full_house, 'full house'
@@ -432,14 +437,12 @@ def gen_flop(dead_cards: set, all_=False):
 	all_cards = list(make_range(dead_cards_set=dead_cards))
 	flop = random.sample(all_cards, 3)
 	if all_:
-		# print(len(all_cards))
 		all_flops = []
 		cards_indexes = len(all_cards)
 		for f1 in range(cards_indexes - 2):
 			for f2 in range(f1 + 1, cards_indexes - 1):
 				for f3 in range(f2 + 1, cards_indexes):
 					all_flops.append([all_cards[f1], all_cards[f2], all_cards[f3]])
-		# print(len(all_flops))
 		return flop, all_cards, all_flops
 	else:
 		return flop, all_cards
@@ -467,6 +470,11 @@ def gen_next_card(prev: list, dead_cards: set, all_=False):
 
 
 def is_suited(hand):
+	"""
+	Is hand suited
+	:param hand: ((v1, s1)(v2, s2))
+	:return: True or False
+	"""
 	card1 = hand[0]
 	card2 = hand[1]
 	return card1[1] == card2[1]
@@ -510,7 +518,6 @@ def hand_equity(hand1, hand2, curr_board=None):
 	if not curr_board:  # pre flop
 		all_boards = gen_board(dead_cards=dead_cards, all_=True)[2]
 		for n, board in enumerate(all_boards):
-			print(n)
 			result = h_vs_h_result(hand1=hand1, hand2=hand2, curr_board=board)
 			compares += 1
 			if result == 'win':
@@ -528,6 +535,10 @@ def hand_equity(hand1, hand2, curr_board=None):
 
 
 def make_2_hands():
+	"""
+	Make 2 hands
+	:return:
+	"""
 	all_cards = list(make_range())
 	all_hands = []
 	for c1, card1 in enumerate(all_cards[:-3]):
@@ -542,11 +553,6 @@ def main():
 	"""
 	Simulations
 	"""
-	# hand_1 = [(5, 3), (11, 1)]
-	# hand_2 = [(9, 3), (12, 1)]
-	# data = [hand_equity(hand1=hand_1, hand2=hand_2)]
-	# save_to_csv(data)
-	# pprint.pprint(make_2_hands())
 	print(len(make_2_hands()))
 
 
