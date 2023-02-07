@@ -399,7 +399,7 @@ def check_combs(hand_info, boards):
 			if trips_sum != 0:
 				print(f'TRIPS pos -- {p+1}: {round((c / all_combs) * 100, 5)} % '
 				      f'({round((c / trips_sum) * 100, 5)} %) '
-				      f'({trips_combs} combs / {all_combs})')
+				      f'({c} combs / {all_combs})')
 		if trips_sum != 0:
 			print(f'TRIPS on board: {round((trips_pos[-1] / all_combs) * 100, 5)} % '
 			      f'({round((trips_pos[-1] / trips_sum) * 100, 5)} %) '
