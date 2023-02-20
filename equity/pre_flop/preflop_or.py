@@ -203,7 +203,7 @@ def visualise_matrix(chart_matrix, name: str):
 
 
 def test_visualise_or():
-    for pos in ['ep', 'mp', 'co', 'btn', 'bb']:
+    for pos in ('ep', 'mp', 'co', 'btn', 'bb'):
         matrix = pref_or(pos=pos)[0]
         visualise_matrix(chart_matrix=matrix, name=pos)
         os.system('cls')

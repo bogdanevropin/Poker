@@ -11,11 +11,16 @@ import csv
 
 
 def save_to_csv(data, file_path='D:\\Bogdan\\Programming\\Poker\\equity\\pre_flop\\eq.csv'):
+	"""
+	Save to csv file
+	:param data:
+	:param file_path:
+	"""
 	with open(file_path, 'w', newline='') as csv_file:
 		csv_out = csv.writer(csv_file)
 		csv_out.writerow(
-			['hand1', 'hand2', 'percent_wins1', 'percent_wins2', 'percent_split', 'eq1', 'eq2', 'h1_wins', 'h2_wins',
-			 'splits', 'compares'])
+			('hand1', 'hand2', 'percent_wins1', 'percent_wins2', 'percent_split', 'eq1', 'eq2', 'h1_wins', 'h2_wins',
+			 'splits', 'compares'))
 		for row in data:
 			csv_out.writerow(row)
 
@@ -595,7 +600,10 @@ def main():
 	# data = [hand_equity(hand1=hand_1, hand2=hand_2)]
 	# save_to_csv(data)
 	# pprint.pprint(make_2_hands())
-	print(len(make_2_hands()))
+	# print(len(make_2_hands()))
+	hand_2 = ((10, 2), (14, 1))
+	board = ((11, 2), (8, 2), (7, 2), (9, 2))
+	print(make_comb(hand=hand_2, board=board))
 
 
 if __name__ == '__main__':

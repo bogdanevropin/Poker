@@ -76,7 +76,7 @@ def ask_num_players_and_pos():
 		else:
 			number_of_payers = int(number_of_payers)
 	
-	def ask_pos(n_p):
+	def ask_pos(n_p: int):
 		"""
 		pos ask
 		:param n_p: number of active players at table
@@ -98,6 +98,13 @@ def ask_num_players_and_pos():
 
 
 def ask_street_actions(info, active_p_i, board=None):
+	"""
+	Asks what action was made
+	:param info:
+	:param active_p_i:
+	:param board:
+	:return:
+	"""
 	street = None
 	if board is None:
 		street = 'preflop'
@@ -162,7 +169,12 @@ def ask_street_actions(info, active_p_i, board=None):
 	return None
 
 
-def check_combs(hand_info, boards):
+def check_combs(hand_info: tuple, boards: list):
+	"""
+	Checking the best combination
+	:param hand_info:
+	:param boards:
+	"""
 	current_hand_nums, current_hand_string, currents_hand_suits = hand_info
 	pocket_pair = False
 	if current_hand_string[0] == current_hand_string[2]:
