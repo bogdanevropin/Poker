@@ -26,7 +26,7 @@ def pref_3b(y_pos: str, opp_pos: str):
     :return:
     """
     if y_pos == 'mp' and opp_pos == 'ep':
-        mp_matrix = [[1,   1, 0.2, 0, 0, 0, 0, 0,   0,   0.5, 0.1, 0.1, 0.1],
+        tb_matrix = [[1,   1, 0.2, 0, 0, 0, 0, 0,   0,   0.5, 0.1, 0.1, 0.1],
                      [1,   1, 0,   0, 0, 0, 0, 0,   0,   0,   0,   0,   0],
                      [0.3, 0, 0.7, 0, 0, 0, 0, 0,   0,   0,   0,   0,   0],
                      [0,   0, 0,   0, 0, 0, 0, 0,   0,   0,   0,   0,   0],
@@ -39,13 +39,13 @@ def pref_3b(y_pos: str, opp_pos: str):
                      [0,   0, 0,   0, 0, 0, 0, 0,   0,   0,   0,   0,   0],
                      [0,   0, 0,   0, 0, 0, 0, 0,   0,   0,   0,   0,   0],
                      [0,   0, 0,   0, 0, 0, 0, 0,   0,   0,   0,   0,   0]]
-        range_percent = sum([sum(mp_matrix[i]) for i in range(len(mp_matrix))]) / (
-                len(mp_matrix) * len(mp_matrix[0])) * 100
+        range_percent = sum([sum(tb_matrix[i]) for i in range(len(tb_matrix))]) / (
+                len(tb_matrix) * len(tb_matrix[0])) * 100
         print(f'{y_pos} vs {opp_pos}: {round(range_percent, 2)} % range')
-        return mp_matrix, range_percent
+        return tb_matrix, range_percent
     
     if y_pos == 'co' and opp_pos == 'ep':
-        mp_matrix = [[1,   1, 0.2, 0.1, 0, 0, 0, 0,   0,   0.9, 0.1, 0.1, 0.1],
+        tb_matrix = [[1,   1, 0.2, 0.1, 0, 0, 0, 0,   0,   0.9, 0.1, 0.1, 0.1],
                      [1,   1, 0.3, 0,   0, 0, 0, 0,   0,   0,   0,   0,   0],
                      [0.5, 0, 0.9, 0,   0, 0, 0, 0,   0,   0,   0,   0,   0],
                      [0,   0, 0,   0.5, 0, 0, 0, 0,   0,   0,   0,   0,   0],
@@ -58,13 +58,13 @@ def pref_3b(y_pos: str, opp_pos: str):
                      [0,   0, 0,   0,   0, 0, 0, 0,   0,   0,   0,   0,   0],
                      [0,   0, 0,   0,   0, 0, 0, 0,   0,   0,   0,   0,   0],
                      [0,   0, 0,   0,   0, 0, 0, 0,   0,   0,   0,   0,   0]]
-        range_percent = sum([sum(mp_matrix[i]) for i in range(len(mp_matrix))]) / (
-                len(mp_matrix) * len(mp_matrix[0])) * 100
+        range_percent = sum([sum(tb_matrix[i]) for i in range(len(tb_matrix))]) / (
+                len(tb_matrix) * len(tb_matrix[0])) * 100
         print(f'{y_pos} vs {opp_pos}: {round(range_percent, 2)} % range')
-        return mp_matrix, range_percent
+        return tb_matrix, range_percent
     
     if y_pos == 'btn' and opp_pos == 'ep':
-        mp_matrix = [[1,   1,   0.5, 0.3, 0,   0,   0, 0,   0,   0.7, 0.1, 0.1, 0.1],
+        tb_matrix = [[1,   1,   0.5, 0.3, 0,   0,   0, 0,   0,   0.7, 0.1, 0.1, 0.1],
                      [1,   1,   0.4, 0,   0,   0,   0, 0,   0,   0,   0,   0,   0],
                      [0.7, 0,   0.7, 0,   0.1, 0,   0, 0,   0,   0,   0,   0,   0],
                      [0,   0,   0,   0,   0,   0.2, 0, 0,   0,   0,   0,   0,   0],
@@ -77,13 +77,13 @@ def pref_3b(y_pos: str, opp_pos: str):
                      [0,   0,   0,   0,   0,   0,   0, 0,   0,   0,   0,   0,   0],
                      [0,   0,   0,   0,   0,   0,   0, 0,   0,   0,   0,   0,   0],
                      [0,   0,   0,   0,   0,   0,   0, 0,   0,   0,   0,   0,   0]]
-        range_percent = sum([sum(mp_matrix[i]) for i in range(len(mp_matrix))]) / (
-                len(mp_matrix) * len(mp_matrix[0])) * 100
+        range_percent = sum([sum(tb_matrix[i]) for i in range(len(tb_matrix))]) / (
+                len(tb_matrix) * len(tb_matrix[0])) * 100
         print(f'{y_pos} vs {opp_pos}: {round(range_percent, 2)} % range')
-        return mp_matrix, range_percent
+        return tb_matrix, range_percent
     
     if y_pos == 'sb' and opp_pos == 'ep':
-        mp_matrix = [[1,   1, 0.5, 0.1, 0,   0, 0, 0,   0,   0.9, 0.1, 0.1, 0.1],
+        tb_matrix = [[1,   1, 0.5, 0.1, 0,   0, 0, 0,   0,   0.9, 0.1, 0.1, 0.1],
                      [1,   1, 0,   0,   0,   0, 0, 0,   0,   0,   0,   0,   0],
                      [0.7, 0, 0.8, 0,   0,   0, 0, 0,   0,   0,   0,   0,   0],
                      [0,   0, 0,   0.5, 0,   0, 0, 0,   0,   0,   0,   0,   0],
@@ -96,13 +96,13 @@ def pref_3b(y_pos: str, opp_pos: str):
                      [0,   0, 0,   0,   0,   0, 0, 0,   0,   0,   0,   0,   0],
                      [0,   0, 0,   0,   0,   0, 0, 0,   0,   0,   0,   0,   0],
                      [0,   0, 0,   0,   0,   0, 0, 0,   0,   0,   0,   0,   0]]
-        range_percent = sum([sum(mp_matrix[i]) for i in range(len(mp_matrix))]) / (
-                len(mp_matrix) * len(mp_matrix[0])) * 100
+        range_percent = sum([sum(tb_matrix[i]) for i in range(len(tb_matrix))]) / (
+                len(tb_matrix) * len(tb_matrix[0])) * 100
         print(f'{y_pos} vs {opp_pos}: {round(range_percent, 2)} % range')
-        return mp_matrix, range_percent
+        return tb_matrix, range_percent
     
     if y_pos == 'bb' and opp_pos == 'ep':
-        mp_matrix = [[1,   1, 1,   0.1, 0,   0, 0,   0,   0,   0.7, 0.1, 0.1, 0.1],
+        tb_matrix = [[1,   1, 1,   0.1, 0,   0, 0,   0,   0,   0.7, 0.1, 0.1, 0.1],
                      [1,   1, 0.1, 0,   0,   0, 0,   0,   0,   0,   0,   0,   0],
                      [0.7, 0, 1,   0,   0,   0, 0,   0,   0,   0,   0,   0,   0],
                      [0,   0, 0,   0.3, 0,   0, 0,   0,   0,   0,   0,   0,   0],
@@ -115,13 +115,13 @@ def pref_3b(y_pos: str, opp_pos: str):
                      [0,   0, 0,   0,   0,   0, 0,   0,   0,   0,   0,   0,   0],
                      [0,   0, 0,   0,   0,   0, 0,   0,   0,   0,   0,   0,   0],
                      [0,   0, 0,   0,   0,   0, 0,   0,   0,   0,   0,   0,   0]]
-        range_percent = sum([sum(mp_matrix[i]) for i in range(len(mp_matrix))]) / (
-                len(mp_matrix) * len(mp_matrix[0])) * 100
+        range_percent = sum([sum(tb_matrix[i]) for i in range(len(tb_matrix))]) / (
+                len(tb_matrix) * len(tb_matrix[0])) * 100
         print(f'{y_pos} vs {opp_pos}: {round(range_percent, 2)} % range')
-        return mp_matrix, range_percent
+        return tb_matrix, range_percent
     
     if y_pos == 'co' and opp_pos == 'mp':
-        mp_matrix = [[1,   1, 1,   0.5, 0, 0, 0, 0,   0,   0.5, 0.1, 0.1, 0.1],
+        tb_matrix = [[1,   1, 1,   0.5, 0, 0, 0, 0,   0,   0.5, 0.1, 0.1, 0.1],
                      [1,   1, 0.4, 0,   0, 0, 0, 0,   0,   0,   0,   0,   0],
                      [1,   0, 0.7, 0,   0, 0, 0, 0,   0,   0,   0,   0,   0],
                      [0.3, 0, 0,   0,   0, 0, 0, 0,   0,   0,   0,   0,   0],
@@ -134,13 +134,13 @@ def pref_3b(y_pos: str, opp_pos: str):
                      [0,   0, 0,   0,   0, 0, 0, 0,   0,   0,   0,   0,   0],
                      [0,   0, 0,   0,   0, 0, 0, 0,   0,   0,   0,   0,   0],
                      [0,   0, 0,   0,   0, 0, 0, 0,   0,   0,   0,   0,   0]]
-        range_percent = sum([sum(mp_matrix[i]) for i in range(len(mp_matrix))]) / (
-                len(mp_matrix) * len(mp_matrix[0])) * 100
+        range_percent = sum([sum(tb_matrix[i]) for i in range(len(tb_matrix))]) / (
+                len(tb_matrix) * len(tb_matrix[0])) * 100
         print(f'{y_pos} vs {opp_pos}: {round(range_percent, 2)} % range')
-        return mp_matrix, range_percent
+        return tb_matrix, range_percent
     
     if y_pos == 'btn' and opp_pos == 'mp':
-        mp_matrix = [[1,   1,   1,   1,   0.5, 0,   0,   0,   0,   1, 0.2, 0.2, 0.2],
+        tb_matrix = [[1,   1,   1,   1,   0.5, 0,   0,   0,   0,   1, 0.2, 0.2, 0.2],
                      [1,   1,   0.8, 0,   0,   0,   0,   0,   0,   0,   0,   0,   0],
                      [1,   0.3, 1,   0.1, 0,   0,   0,   0,   0,   0,   0,   0,   0],
                      [1,   0,   0,   1,   0.3, 0.5, 0,   0,   0,   0,   0,   0,   0],
@@ -153,13 +153,13 @@ def pref_3b(y_pos: str, opp_pos: str):
                      [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0],
                      [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0],
                      [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0]]
-        range_percent = sum([sum(mp_matrix[i]) for i in range(len(mp_matrix))]) / (
-                len(mp_matrix) * len(mp_matrix[0])) * 100
+        range_percent = sum([sum(tb_matrix[i]) for i in range(len(tb_matrix))]) / (
+                len(tb_matrix) * len(tb_matrix[0])) * 100
         print(f'{y_pos} vs {opp_pos}: {round(range_percent, 2)} % range')
-        return mp_matrix, range_percent
+        return tb_matrix, range_percent
     
     if y_pos == 'sb' and opp_pos == 'mp':
-        mp_matrix = [[1,   1, 1,   0.4, 0,   0,   0, 0,   0,   0.8, 0.2, 0.2, 0.2],
+        tb_matrix = [[1,   1, 1,   0.4, 0,   0,   0, 0,   0,   0.8, 0.2, 0.2, 0.2],
                      [1,   1, 0.3, 0,   0,   0,   0, 0,   0,   0,   0,   0,   0],
                      [0.8, 0, 0.7, 0,   0,   0,   0, 0,   0,   0,   0,   0,   0],
                      [0,   0, 0,   0.5, 0.2, 0,   0, 0,   0,   0,   0,   0,   0],
@@ -172,13 +172,13 @@ def pref_3b(y_pos: str, opp_pos: str):
                      [0,   0, 0,   0,   0,   0,   0, 0,   0,   0,   0,   0,   0],
                      [0,   0, 0,   0,   0,   0,   0, 0,   0,   0,   0,   0,   0],
                      [0,   0, 0,   0,   0,   0,   0, 0,   0,   0,   0,   0,   0]]
-        range_percent = sum([sum(mp_matrix[i]) for i in range(len(mp_matrix))]) / (
-                len(mp_matrix) * len(mp_matrix[0])) * 100
+        range_percent = sum([sum(tb_matrix[i]) for i in range(len(tb_matrix))]) / (
+                len(tb_matrix) * len(tb_matrix[0])) * 100
         print(f'{y_pos} vs {opp_pos}: {round(range_percent, 2)} % range')
-        return mp_matrix, range_percent
+        return tb_matrix, range_percent
     
     if y_pos == 'bb' and opp_pos == 'mp':
-        mp_matrix = [[1,   1, 1,   1,   0,   0,   0,   0,   0,   0.5, 0.1, 0.1, 0.1],
+        tb_matrix = [[1,   1, 1,   1,   0,   0,   0,   0,   0,   0.5, 0.1, 0.1, 0.1],
                      [1,   1, 1,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0],
                      [0.7, 0, 1,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0],
                      [0,   0, 0,   0.5, 0,   0.2, 0,   0,   0,   0,   0,   0,   0],
@@ -191,13 +191,13 @@ def pref_3b(y_pos: str, opp_pos: str):
                      [0,   0, 0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0],
                      [0,   0, 0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0],
                      [0,   0, 0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0]]
-        range_percent = sum([sum(mp_matrix[i]) for i in range(len(mp_matrix))]) / (
-                len(mp_matrix) * len(mp_matrix[0])) * 100
+        range_percent = sum([sum(tb_matrix[i]) for i in range(len(tb_matrix))]) / (
+                len(tb_matrix) * len(tb_matrix[0])) * 100
         print(f'{y_pos} vs {opp_pos}: {round(range_percent, 2)} % range')
-        return mp_matrix, range_percent
+        return tb_matrix, range_percent
     
     if y_pos == 'btn' and opp_pos == 'co':
-        mp_matrix = [[1,   1, 1,   1,   1,   0.3, 0.3, 0.3, 0.3, 1, 0.7, 0.7, 0.7],
+        tb_matrix = [[1,   1, 1,   1,   1,   0.3, 0.3, 0.3, 0.3, 1, 0.7, 0.7, 0.7],
                      [1,   1, 1,   0.2, 0,   0,   0,   0,   0,   0,   0,   0,   0],
                      [1,   1, 1,   0.4, 0,   0,   0,   0,   0,   0,   0,   0,   0],
                      [1,   0, 0,   1,   1,   0,   0,   0,   0,   0,   0,   0,   0],
@@ -210,13 +210,13 @@ def pref_3b(y_pos: str, opp_pos: str):
                      [0,   0, 0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0],
                      [0,   0, 0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0],
                      [0,   0, 0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0]]
-        range_percent = sum([sum(mp_matrix[i]) for i in range(len(mp_matrix))]) / (
-                len(mp_matrix) * len(mp_matrix[0])) * 100
+        range_percent = sum([sum(tb_matrix[i]) for i in range(len(tb_matrix))]) / (
+                len(tb_matrix) * len(tb_matrix[0])) * 100
         print(f'{y_pos} vs {opp_pos}: {round(range_percent, 2)} % range')
-        return mp_matrix, range_percent
+        return tb_matrix, range_percent
     
     if y_pos == 'sb' and opp_pos == 'co':
-        mp_matrix = [[1,   1,   1,   1,   0.5, 0.1, 0.1, 0.1, 0.1, 1, 0.3, 0.3, 0.3],
+        tb_matrix = [[1,   1,   1,   1,   0.5, 0.1, 0.1, 0.1, 0.1, 1, 0.3, 0.3, 0.3],
                      [1,   1,   0.5, 0,   0,   0,   0,   0,   0,   0,   0,   0,   0],
                      [0.7, 0.5, 1,   0.2, 0,   0,   0,   0,   0,   0,   0,   0,   0],
                      [0,   0,   0,   0.7, 0.4, 0,   0,   0,   0,   0,   0,   0,   0],
@@ -230,13 +230,13 @@ def pref_3b(y_pos: str, opp_pos: str):
                      [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0],
                      [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0]]
         
-        range_percent = sum([sum(mp_matrix[i]) for i in range(len(mp_matrix))]) / (
-                len(mp_matrix) * len(mp_matrix[0])) * 100
+        range_percent = sum([sum(tb_matrix[i]) for i in range(len(tb_matrix))]) / (
+                len(tb_matrix) * len(tb_matrix[0])) * 100
         print(f'{y_pos} vs {opp_pos}: {round(range_percent, 2)} % range')
-        return mp_matrix, range_percent
+        return tb_matrix, range_percent
     
     if y_pos == 'bb' and opp_pos == 'co':
-        mp_matrix = [[1,   1,   1,   0.9, 0,   0, 0, 0,   0,   0.5, 0.1, 0.1, 0.1],
+        tb_matrix = [[1,   1,   1,   0.9, 0,   0, 0, 0,   0,   0.5, 0.1, 0.1, 0.1],
                      [1,   1,   1,   0,   0,   0, 0, 0,   0,   0,   0,   0,   0],
                      [1,   0.8, 1,   0,   0,   0, 0, 0,   0,   0,   0,   0,   0],
                      [0,   0,   0,   1,   0,   0, 0, 0,   0,   0,   0,   0,   0],
@@ -249,13 +249,13 @@ def pref_3b(y_pos: str, opp_pos: str):
                      [0,   0,   0,   0,   0,   0, 0, 0,   0,   0,   0,   0,   0],
                      [0,   0,   0,   0,   0,   0, 0, 0,   0,   0,   0,   0,   0],
                      [0,   0,   0,   0,   0,   0, 0, 0,   0,   0,   0,   0,   0]]
-        range_percent = sum([sum(mp_matrix[i]) for i in range(len(mp_matrix))]) / (
-                len(mp_matrix) * len(mp_matrix[0])) * 100
+        range_percent = sum([sum(tb_matrix[i]) for i in range(len(tb_matrix))]) / (
+                len(tb_matrix) * len(tb_matrix[0])) * 100
         print(f'{y_pos} vs {opp_pos}: {round(range_percent, 2)} % range')
-        return mp_matrix, range_percent
+        return tb_matrix, range_percent
     
     if y_pos == 'sb' and opp_pos == 'btn':
-        mp_matrix = [[1,   1,   1,   1,   0.5, 0.5, 0.5, 0.5, 0.5, 1, 0.7, 0.7, 0.7],
+        tb_matrix = [[1,   1,   1,   1,   0.5, 0.5, 0.5, 0.5, 0.5, 1, 0.7, 0.7, 0.7],
                      [1,   1,   0.9, 0.3, 0,   0,   0,   0,   0,   0,   0,   0,   0],
                      [1,   0.9, 0.9, 0.3, 0,   0,   0,   0,   0,   0,   0,   0,   0],
                      [0.8, 0.2, 0,   0.9, 0.1, 0.2, 0.1, 0,   0,   0,   0,   0,   0],
@@ -268,13 +268,13 @@ def pref_3b(y_pos: str, opp_pos: str):
                      [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0],
                      [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0],
                      [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0]]
-        range_percent = sum([sum(mp_matrix[i]) for i in range(len(mp_matrix))]) / (
-                len(mp_matrix) * len(mp_matrix[0])) * 100
+        range_percent = sum([sum(tb_matrix[i]) for i in range(len(tb_matrix))]) / (
+                len(tb_matrix) * len(tb_matrix[0])) * 100
         print(f'{y_pos} vs {opp_pos}: {round(range_percent, 2)} % range')
-        return mp_matrix, range_percent
+        return tb_matrix, range_percent
     
     if y_pos == 'bb' and opp_pos == 'btn':
-        mp_matrix = [[1,   1,   1,   1,   1,   0.5, 0.4, 0.3, 0.3, 1,   0.4, 0.4, 0.4],
+        tb_matrix = [[1,   1,   1,   1,   1,   0.5, 0.4, 0.3, 0.3, 1,   0.4, 0.4, 0.4],
                      [1,   1,   1,   0.6, 0,   0,   0,   0,   0,   0,   0,   0,   0],
                      [1,   1,   1,   0.6, 0,   0,   0,   0,   0,   0,   0,   0,   0],
                      [1,   0.3, 0.2, 1,   0.1, 0.1, 0,   0,   0,   0,   0,   0,   0],
@@ -287,13 +287,13 @@ def pref_3b(y_pos: str, opp_pos: str):
                      [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0],
                      [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0],
                      [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0]]
-        range_percent = sum([sum(mp_matrix[i]) for i in range(len(mp_matrix))]) / (
-                len(mp_matrix) * len(mp_matrix[0])) * 100
+        range_percent = sum([sum(tb_matrix[i]) for i in range(len(tb_matrix))]) / (
+                len(tb_matrix) * len(tb_matrix[0])) * 100
         print(f'{y_pos} vs {opp_pos}: {round(range_percent, 2)} % range')
-        return mp_matrix, range_percent
+        return tb_matrix, range_percent
     
     if y_pos == 'bb' and opp_pos == 'sb':
-        mp_matrix = [[1,   1, 1,   1,   1, 0.6, 0.5, 0.3, 0.3, 1, 0.4, 0.4, 0.4],
+        tb_matrix = [[1,   1, 1,   1,   1, 0.6, 0.5, 0.3, 0.3, 1, 0.4, 0.4, 0.4],
                      [1,   1, 1,   0.7, 0, 0,   0,   0,   0,   0,   0,   0,   0],
                      [0.7, 0, 0.7, 0.7, 0, 0,   0,   0,   0,   0,   0,   0,   0],
                      [0,   0, 0,   1,   0, 0,   0,   0,   0,   0,   0,   0,   0],
@@ -306,10 +306,10 @@ def pref_3b(y_pos: str, opp_pos: str):
                      [0,   0, 0,   0,   0, 0,   0,   0,   0,   0,   0,   0,   0],
                      [0,   0, 0,   0,   0, 0,   0,   0,   0,   0,   0,   0,   0],
                      [0,   0, 0,   0,   0, 0,   0,   0,   0,   0,   0,   0,   0]]
-        range_percent = sum([sum(mp_matrix[i]) for i in range(len(mp_matrix))]) / (
-                len(mp_matrix) * len(mp_matrix[0])) * 100
+        range_percent = sum([sum(tb_matrix[i]) for i in range(len(tb_matrix))]) / (
+                len(tb_matrix) * len(tb_matrix[0])) * 100
         print(f'{y_pos} vs {opp_pos}: {round(range_percent, 2)} % range')
-        return mp_matrix, range_percent
+        return tb_matrix, range_percent
 
 
 def test_visualise():
